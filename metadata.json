@@ -1,0 +1,6 @@
+{
+  "name": "TimeSchool",
+  "description": "Sistema de Timbre Escolar Automatizado - Arquitectura móvil y sincronización IoT",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

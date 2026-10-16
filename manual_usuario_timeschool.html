@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeSchool - Manual de Usuario Oficial (Técnico y Operativo)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0B131F;
+            --bg-surface: #111827;
+            --bg-card: #1E293B;
+            --bg-card-subtle: #0f172a;
+            --border-color: #334155;
+            --border-highlight: #475569;
+            --accent-green: #4EFA94;
+            --accent-green-dim: #1a4d33;
+            --accent-cyan: #38BDF8;
+            --accent-cyan-dim: #0c4a6e;
+            --accent-crimson: #EF4444;
+            --accent-crimson-dim: #451a1a;
+            --accent-amber: #F59E0B;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body.light-mode {
+            --bg-primary: #F8FAFC;
+            --bg-surface: #FFFFFF;
+            --bg-card: #F1F5F9;
+            --bg-card-subtle: #E2E8F0;
+            --border-color: #CBD5E1;
+            --border-highlight: #94A3B8;
+            --accent-green: #059669;
+            --accent-green-dim: #D1FAE5;
+            --accent-cyan: #0284C7;
+            --accent-cyan-dim: #E0F2FE;
+            --accent-crimson: #DC2626;
+            --accent-crimson-dim: #FEE2E2;
+            --accent-amber: #D97706;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            font-size: 15px;
+            scroll-behavior: smooth;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* Top Bar Floating Controls */
+        .top-action-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 19, 31, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-brand .logo-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .bar-brand h1 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .bar-brand span {
+            color: var(--accent-green);
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .btn-print {
+            background: var(--accent-green);
+            color: #0B131F;
+            border: none;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(78, 250, 148, 0.3);
+        }
+
+        .btn-toggle-theme {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-toggle-theme:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        /* Layout Container */
+        .manual-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 24px 80px 24px;
+        }
+
+        /* Hero / Portada */
+        .manual-hero {
+            background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manual-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(78, 250, 148, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .pill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pill-green {
+            background: rgba(78, 250, 148, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(78, 250, 148, 0.35);
+        }
+
+        .pill-cyan {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+        }
+
+        .pill-amber {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+
+        .manual-hero h2 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .manual-hero p.subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            max-width: 780px;
+        }
+
+        .hero-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .meta-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Tabla de Contenido */
+        .toc-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 48px;
+        }
+
+        .toc-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-cyan);
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px 24px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .toc-item a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .toc-item a:hover {
+            color: var(--accent-green);
+        }
+
+        .toc-num {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        /* Section Styling */
+        .manual-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-badge {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-green);
+            background: rgba(78, 250, 148, 0.12);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .section-body h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 20px 0 10px 0;
+            color: var(--accent-cyan);
+        }
+
+        .section-body p {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .section-body ul, .section-body ol {
+            margin: 12px 0 18px 24px;
+            color: var(--text-secondary);
+        }
+
+        .section-body li {
+            margin-bottom: 6px;
+        }
+
+        /* Callouts / Banners */
+        .callout {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 18px 0;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .callout-info {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--text-primary);
+        }
+
+        .callout-success {
+            background: rgba(78, 250, 148, 0.1);
+            border: 1px solid rgba(78, 250, 148, 0.3);
+            color: var(--text-primary);
+        }
+
+        .callout-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--text-primary);
+        }
+
+        .callout-danger {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: var(--text-primary);
+        }
+
+        .callout-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Figure Cards */
+        .figure-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .figure-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .figure-mockup {
+            background: #0B131F;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 14px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: #F8FAFC;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .figure-caption {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .figure-steps {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-top: 10px;
+        }
+
+        .figure-steps h5 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .figure-steps ol {
+            margin-left: 20px;
+            font-size: 13.5px;
+            color: var(--text-secondary);
+        }
+
+        .figure-steps li {
+            margin-bottom: 6px;
+        }
+
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 13.5px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .data-table th {
+            background: var(--bg-card);
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--bg-card-subtle);
+        }
+
+        /* Footer */
+        .manual-footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+
+            .top-action-bar, .btn-print, .btn-toggle-theme {
+                display: none !important;
+            }
+
+            .manual-wrapper {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            .manual-hero, .manual-section, .toc-card, .figure-card {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+                margin-bottom: 20pt;
+            }
+
+            .manual-section {
+                page-break-before: auto;
+            }
+
+            .figure-mockup {
+                background: #f8fafc !important;
+                color: #0f172a !important;
+                border: 1px solid #94a3b8 !important;
+            }
+
+            .pill-green, .pill-cyan, .pill-amber {
+                border: 1px solid #64748b !important;
+                color: #0f172a !important;
+                background: #f1f5f9 !important;
+            }
+
+            .section-header h3, .manual-hero h2 {
+                color: #0f172a !important;
+            }
+
+            .toc-item a {
+                color: #0f172a !important;
+                text-decoration: underline;
+            }
+
+            .data-table th {
+                background: #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+
+            .data-table td {
+                color: #0f172a !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Top Bar -->
+    <header class="top-action-bar">
+        <div class="bar-brand">
+            <div class="logo-badge">🔔</div>
+            <div>
+                <h1>TimeSchool <span>v1.0</span></h1>
+            </div>
+        </div>
+        <div class="bar-actions">
+            <button class="btn-action btn-toggle-theme" id="themeToggleBtn" onclick="toggleTheme()">
+                🌓 Tema Claro / Oscuro
+            </button>
+            <button class="btn-action btn-print" onclick="window.print()">
+                🖨️ Imprimir / Guardar como PDF
+            </button>
+        </div>
+    </header>
+
+    <div class="manual-wrapper">
+
+        <!-- 1. PORTADA -->
+        <section class="manual-hero" id="sec-portada">
+            <div class="hero-badge-row">
+                <span class="pill-badge pill-green">Manual Oficial de Usuario</span>
+                <span class="pill-badge pill-cyan">Documento Técnico y Operativo</span>
+                <span class="pill-badge pill-amber">Versión 1.0 Android</span>
+            </div>
+            <h2>TimeSchool: Sistema de Timbre Escolar Automatizado</h2>
+            <p class="subtitle">
+                Guía completa de usuario, operación pedagógica semanal, sincronización IoT Bluetooth SPP, accionamiento de campana y protocolos de seguridad institucional.
+            </p>
+
+            <div class="hero-meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Institución Educativa</span>
+                    <span class="meta-value">I.E. Técnico Industrial San José</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Sede / Campus</span>
+                    <span class="meta-value">Sede Principal - Campus Central</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Año Lectivo</span>
+                    <span class="meta-value">2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Hardware Enlazado</span>
+                    <span class="meta-value">ESP32_TIMESCHOOL_BELL (SPP)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TABLA DE CONTENIDO -->
+        <nav class="toc-card" id="sec-toc">
+            <h3>📑 Tabla de Contenido del Manual</h3>
+            <div class="toc-grid">
+                <div class="toc-item"><span class="toc-num">01.</span> <a href="#sec-portada">Portada e Información General</a></div>
+                <div class="toc-item"><span class="toc-num">02.</span> <a href="#sec-introduccion">Introducción y Justificación</a></div>
+                <div class="toc-item"><span class="toc-num">03.</span> <a href="#sec-objetivos">Objetivos del Manual</a></div>
+                <div class="toc-item"><span class="toc-num">04.</span> <a href="#sec-descripcion">Descripción General del Sistema</a></div>
+                <div class="toc-item"><span class="toc-num">05.</span> <a href="#sec-requisitos">Requisitos y Condiciones de Uso</a></div>
+                <div class="toc-item"><span class="toc-num">06.</span> <a href="#sec-acceso">Instalación y Primer Inicio</a></div>
+                <div class="toc-item"><span class="toc-num">07.</span> <a href="#sec-interfaz">Descripción de la Interfaz</a></div>
+                <div class="toc-item"><span class="toc-num">08.</span> <a href="#sec-dashboard">Módulo 1: Panel Central (Dashboard)</a></div>
+                <div class="toc-item"><span class="toc-num">09.</span> <a href="#sec-horarios">Módulo 2: Configuración Semanal de Horarios</a></div>
+                <div class="toc-item"><span class="toc-num">10.</span> <a href="#sec-toques">Módulo 3: Creación y Edición de Toques</a></div>
+                <div class="toc-item"><span class="toc-num">11.</span> <a href="#sec-calendario">Módulo 4: Calendario Escolar Fecha a Fecha</a></div>
+                <div class="toc-item"><span class="toc-num">12.</span> <a href="#sec-iot">Módulo 5: Enlace IoT y Toque Manual</a></div>
+                <div class="toc-item"><span class="toc-num">13.</span> <a href="#sec-evacuacion">Módulo 6: Alarma de Evacuación</a></div>
+                <div class="toc-item"><span class="toc-num">14.</span> <a href="#sec-bitacora">Módulo 7: Bitácora Inmutable (Auditoría)</a></div>
+                <div class="toc-item"><span class="toc-num">15.</span> <a href="#sec-sede">Módulo 8: Sede y Control de Permisos</a></div>
+                <div class="toc-item"><span class="toc-num">16.</span> <a href="#sec-errores">Mensajes, Validaciones y Errores</a></div>
+                <div class="toc-item"><span class="toc-num">17.</span> <a href="#sec-seguridad">Recomendaciones y Buenas Prácticas</a></div>
+                <div class="toc-item"><span class="toc-num">18.</span> <a href="#sec-faq">Preguntas Frecuentes (FAQ)</a></div>
+                <div class="toc-item"><span class="toc-num">19.</span> <a href="#sec-glosario">Glosario Técnico</a></div>
+                <div class="toc-item"><span class="toc-num">20.</span> <a href="#sec-conclusiones">Conclusiones del Sistema</a></div>
+            </div>
+        </nav>
+
+        <!-- 3. INTRODUCCIÓN -->
+        <section class="manual-section" id="sec-introduccion">
+            <div class="section-header">
+                <span class="section-badge">02</span>
+                <h3>Introducción y Propósito del Sistema</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    La puntualidad en el cambio de clases y el cumplimiento estricto de las jornadas pedagógicas constituyen la columna vertebral del orden institucional en cualquier colegio. Los sistemas de timbre tradicionales presentan graves inconvenientes: olvidos por parte del personal encargado de activar la campana manualmente, desprogramación recurrente ante fluctuaciones eléctricas o caídas de internet, y falta de protocolos ágiles para accionar alarmas de evacuación.
+                </p>
+                <p>
+                    <strong>TimeSchool</strong> fue concebido para solventar esta problemática mediante una arquitectura híbrida de alta fiabilidad:
+                </p>
+                <ul>
+                    <li><strong>Autonomía Física:</strong> Un microcontrolador <strong>ESP32</strong> conectado al relé de la campana electromecánica almacena en su memoria Flash no volátil las tablas de horarios escolares. Una vez sincronizado, no requiere señal Wi-Fi ni la presencia del teléfono móvil para accionar los timbres con precisión de reloj en tiempo real (RTC).</li>
+                    <li><strong>Control Móvil Flexible:</strong> Mediante un aplicativo nativo para Android (Kotlin + Jetpack Compose), administradores y coordinadores pueden definir la rutina semanal (Horarios Tipo A, B o C), inspeccionar los toques en un formato compacto, realizar toques manuales táctiles y comandar la evacuación general.</li>
+                    <li><strong>Persistencia Robusta:</strong> Todas las asignaciones semanales y ajustes se graban en almacenamiento permanente local (<code>TimeSchoolPreferences</code>) y en la nube (Cloud Firestore), garantizando que ningún dato se pierda al cerrar la app o apagar el móvil.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 4. OBJETIVOS DEL MANUAL -->
+        <section class="manual-section" id="sec-objetivos">
+            <div class="section-header">
+                <span class="section-badge">03</span>
+                <h3>Objetivos del Manual de Usuario</h3>
+            </div>
+            <div class="section-body">
+                <h4>3.1. Objetivo General</h4>
+                <p>
+                    Capacitar integralmente al personal directivo, docente y de apoyo logístico en el uso y administración del aplicativo móvil TimeSchool, asegurando el aprovechamiento óptimo de sus herramientas de programación, enlace IoT y seguridad escolar.
+                </p>
+                <h4>3.2. Objetivos Específicos</h4>
+                <ol>
+                    <li>Instruir en el proceso de instalación y navegación fluida entre las 6 secciones principales de la aplicación.</li>
+                    <li>Explicar detalladamente la asignación semanal de regímenes de horario mediante el botón "Guardar Horario".</li>
+                    <li>Detallar la creación, modificación y ajuste de duración (segundos de relé) de los toques de campana.</li>
+                    <li>Enseñar a enlazar el teléfono vía Bluetooth Classic SPP y transmitir las tablas horarias a la memoria Flash del ESP32.</li>
+                    <li>Describir el protocolo de seguridad de dos pasos para el disparo y cancelación de la alarma de evacuación.</li>
+                    <li>Capacitar en la auditoría de registros inmutables y la comprensión de las restricciones por roles (Administrador vs Directivo).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 5. REQUISITOS Y CONDICIONES DE USO -->
+        <section class="manual-section" id="sec-requisitos">
+            <div class="section-header">
+                <span class="section-badge">04</span>
+                <h3>Requisitos y Condiciones de Uso</h3>
+            </div>
+            <div class="section-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Especificación Mínima Verificada</th>
+                            <th>Función Operativa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dispositivo Móvil</strong></td>
+                            <td>Android 7.0 (API 24) o superior</td>
+                            <td>Ejecución del aplicativo nativo TimeSchool</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bluetooth</strong></td>
+                            <td>Bluetooth Classic 2.1+ con perfil SPP</td>
+                            <td>Canal serie inalámbrico con el módulo ESP32</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hardware IoT</strong></td>
+                            <td>Microcontrolador ESP32 + Módulo Relé 5V</td>
+                            <td>Almacenamiento en Flash y activación física de la campana</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UUID SPP</strong></td>
+                            <td><code>00001101-0000-1000-8000-00805F9B34FB</code></td>
+                            <td>Identificador universal estándar de puerto serie</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Instalador APK</strong></td>
+                            <td><code>TimeSchool-v1.0-debug.apk</code> (24 MB)</td>
+                            <td>Paquete compilado y firmado para instalación directa</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout callout-info">
+                    <div class="callout-icon">ℹ️</div>
+                    <div>
+                        <strong>Independencia de Internet:</strong> El accionamiento programado de la campana y el enlace Bluetooth con el ESP32 no consumen datos móviles ni dependen de la red Wi-Fi de la institución.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. DESCRIPCIÓN DE LA INTERFAZ -->
+        <section class="manual-section" id="sec-interfaz">
+            <div class="section-header">
+                <span class="section-badge">05</span>
+                <h3>Descripción de la Interfaz General</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    La aplicación cuenta con una estructura fija compuesta por una <strong>Barra Superior (TopAppBar)</strong> con indicadores de telemetría y rol, y una <strong>Barra Inferior de Navegación (BottomNavigationBar)</strong> con acceso directo a las 6 áreas funcionales:
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 2. Barra de Navegación Inferior (Pestaña Panel Activa)</div>
+                    <div class="figure-mockup">[ ■ Panel ]    [ 🕒 Horarios ]    [ 📅 Calendario ]    [ 🔔 IoT Timbre ]    [ 📜 Bitácora ]    [ ⚙️ Sede ]</div>
+                    <div class="figure-caption">Muestra los 6 accesos directos con indicador de selección verde neón sobre el botón Panel.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. MÓDULO 1: DASHBOARD -->
+        <section class="manual-section" id="sec-dashboard">
+            <div class="section-header">
+                <span class="section-badge">06</span>
+                <h3>Módulo 1: Panel Central (Dashboard y Reloj Sincronizado)</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    El Panel Central proporciona una panorámica operativa inmediata del colegio en tiempo real.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 1. Pantalla Principal: Reloj Digital y Próximo Timbre</div>
+                    <div class="figure-mockup">● SISTEMA AUTÓNOMO ACTIVO       ESP32: Conectado (SPP) ●
+
+                    12 : 55 : 18
+             Hora sincronizada con RTC y Servidor
+
+[🔔] Próximo Timbre:
+     13:40 - Cambio de Clase - Hora 7 (35s)
+------------------------------------------------------
+Acciones Inmediatas:
+[ 🔔 Toque 3s ]        [ 🔄 Sincroniza ]        [ ⚠️ Alarma ]</div>
+                    <div class="figure-caption">Monitoreo del reloj de alta precisión, tarjeta del próximo evento y botones de disparo rápido.</div>
+                    <div class="figure-steps">
+                        <h5>Procedimiento de Monitoreo y Toque Rápido:</h5>
+                        <ol>
+                            <li>Abra la aplicación y sitúese en la pestaña <strong>Panel</strong>.</li>
+                            <li>Compruebe en el encabezado que el indicador señale <strong>SISTEMA AUTÓNOMO ACTIVO</strong> y <strong>ESP32: Conectado (SPP)</strong>.</li>
+                            <li>Observe la tarjeta del próximo timbre para conocer con exactitud el bloque que está por terminar.</li>
+                            <li>Para realizar un toque breve de cortesía de 3 segundos sin ingresar a configuraciones, pulse el botón verde <strong>Toque 3s</strong>.</li>
+                            <li>Para refrescar los datos contra el microcontrolador, pulse el botón <strong>Sincroniza</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 3. Telemetría Operativa y Últimos Eventos Auditados</div>
+                    <div class="figure-mockup">Telemetría y Estado Operativo:
+┌─────────────────────────┐  ┌─────────────────────────┐
+│ Toques Activos: 135     │  │ Memoria Flash: 135      │
+│ Programados hoy         │  │ Tablas grabadas         │
+└─────────────────────────┘  └─────────────────────────┘
+┌─────────────────────────┐  ┌─────────────────────────┐
+│ Último Enlace IoT:      │  │ Bitácora de Eventos: 3  │
+│ Hoy 07:05 AM (SPP)      │  │ Registros inmutables    │
+└─────────────────────────┘  └─────────────────────────┘
+
+Últimos Eventos Auditados:                           Ver todos →
+[ Programado ] Disparo automático: Timbre 07:00 (Inicio Hora 1)
+[ Programado ] Disparo automático: Timbre 06:45 (Entrada General)
+[ Sincronización IoT ] Sincronización Bluetooth: Carlos Mendoza</div>
+                    <div class="figure-caption">Resumen técnico de tablas grabadas en Flash y los tres últimos eventos procesados por el relé.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. MÓDULO 2: HORARIOS SEMANALES -->
+        <section class="manual-section" id="sec-horarios">
+            <div class="section-header">
+                <span class="section-badge">07</span>
+                <h3>Módulo 2: Configuración Semanal de Horarios (Lunes a Viernes)</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    Permite definir la rutina pedagógica para cada día escolar asignando el tipo de jornada correspondiente y persistiendo los cambios de manera atómica con el botón <strong>Guardar Horario</strong>.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 4. Módulo de Horarios: Régimen Semanal y Botón Guardar Horario</div>
+                    <div class="figure-mockup">📅 Régimen Escolar Semanal
+Asigna el tipo de horario (A, B o C) para cada día de la semana y pulsa 'Guardar Horario':
+
+[📅] Lunes            [ Horario A ▼ ] (Verde Neón)
+[📅] Martes           [ Horario B ▼ ] (Azul Cian)
+[📅] Miércoles        [ Horario A ▼ ] (Verde Neón)
+[📅] Jueves           [ Horario B ▼ ] (Azul Cian)
+[📅] Viernes          [ Horario C ▼ ] (Ámbar)
+
+┌────────────────────────────────────────────────────────┐
+│               💾  GUARDAR HORARIO                      │
+└────────────────────────────────────────────────────────┘
+
+Días de la Semana:
+[ Lunes (A) ]  [ Martes (B) ]  [ Miércoles (A) ]  [ Jueves (B) ]  [ Viernes (C) ]
+
+● Resumen del Lunes                    [ + Nuevo Toque ]
+Horario Ordinario (Tipo A) • 11 toques activos</div>
+                    <div class="figure-caption">Panel semanal interactivo con menús desplegables por día, botón de guardado en base de datos y chips de navegación.</div>
+                    <div class="figure-steps">
+                        <h5>Procedimiento para Configurar y Guardar la Semana Escolar:</h5>
+                        <ol>
+                            <li>Pulse la pestaña <strong>Horarios</strong> en la barra inferior (Figura 5).</li>
+                            <li>Identifique la tarjeta <em>Régimen Escolar Semanal</em> en la parte superior.</li>
+                            <li>Haga clic sobre el desplegable del día que desea modificar (por ejemplo, Martes).</li>
+                            <li>Seleccione entre <strong>Horario A</strong> (Ordinario), <strong>Horario B</strong> (Especial / 45 min) u <strong>Horario C</strong> (Continua / 12:30 pm).</li>
+                            <li>Si se realizaron ajustes, se mostrará una pastilla ámbar con el estado <strong>Pendiente</strong>.</li>
+                            <li>Haga clic en el botón verde neón <strong>Guardar Horario</strong>.</li>
+                            <li>El sistema confirmará: <em>"Horario semanal guardado exitosamente"</em>, guardará la configuración en disco permanente y registrará el cambio en la bitácora.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 5. Barra de Navegación Inferior: Pestaña Horarios Activa</div>
+                    <div class="figure-mockup">[ Panel ]    [ 🕒 Horarios (Activo) ]    [ Calendario ]    [ IoT Timbre ]    [ Bitácora ]    [ Sede ]</div>
+                    <div class="figure-caption">Indicador verde activo sobre la sección Horarios.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. MÓDULO 3: PROGRAMACIÓN DE TOQUES -->
+        <section class="manual-section" id="sec-toques">
+            <div class="section-header">
+                <span class="section-badge">08</span>
+                <h3>Módulo 3: Programación y Gestión de Toques Compactos</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    A diferencia de diseños anteriores con cuadros excesivamente grandes, TimeSchool utiliza una <strong>lista compacta de toques de 52dp</strong> de altura, permitiendo visualizar la jornada completa sin fatiga visual.
+                </p>
+
+                <div class="figure-mockup">Lista Compacta de Timbres (52dp):
+┌────────────────────────────────────────────────────────────────────────┐
+│ [ 06:45 ]  Entrada General y Formación         [ 5s ]  [✏️]  [🗑️]  [●─] │
+├────────────────────────────────────────────────────────────────────────┤
+│ [ 07:00 ]  Inicio Hora 1                       [ 4s ]  [✏️]  [🗑️]  [●─] │
+├────────────────────────────────────────────────────────────────────────┤
+│ [ 07:55 ]  Cambio de Clase - Hora 2            [ 3s ]  [✏️]  [🗑️]  [●─] │
+├────────────────────────────────────────────────────────────────────────┤
+│ [ 09:45 ]  Inicio Primer Descanso              [ 5s ]  [✏️]  [🗑️]  [●─] │
+└────────────────────────────────────────────────────────────────────────┘</div>
+
+                <div class="figure-steps">
+                    <h5>Operaciones en la Lista Compacta:</h5>
+                    <ul>
+                        <li><strong>Activar / Suspender un toque:</strong> Mueva el interruptor deslizante en el extremo derecho. El toque pasará a estado atenuado y el ESP32 no lo accionará mientras esté apagado.</li>
+                        <li><strong>Editar duración o etiqueta:</strong> Pulse el icono de lápiz <code>[✏️]</code> para modificar la hora militar, el bloque o los segundos del relé.</li>
+                        <li><strong>Eliminar toque:</strong> Pulse la papelera roja <code>[🗑️]</code> para borrarlo de la matriz.</li>
+                        <li><strong>Añadir toque imprevisto:</strong> Pulse el botón flotante <strong>+ Nuevo Toque</strong> e introduzca hora militar (ej. <code>11:15</code>), descripción y duración (1 a 15 segundos).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. MÓDULO 4: CALENDARIO -->
+        <section class="manual-section" id="sec-calendario">
+            <div class="section-header">
+                <span class="section-badge">09</span>
+                <h3>Módulo 4: Calendario Escolar y Asignación Fecha a Fecha</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    Permite planificar las fechas del año lectivo a 15 días vista e introducir excepciones para días de actos cívicos, jornadas pedagógicas o recesos festivos.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 6. Módulo de Calendario Escolar: Asignación Diaria</div>
+                    <div class="figure-mockup">📅 Asignación Diaria de Horarios
+Asigna qué régimen de toques regirá cada fecha del año lectivo...
+Próximas Fechas Registradas (15 días planificados):
+
+┌──────────────────────────────────────────────────────────────┐
+│ [ 15 ] Jueves, 15 de octubre                                 │
+│ [ 10 ] [ Horario Ordinario (Tipo A) ]                 [ ✏️ ] │
+│        Jornada escolar ordinaria                             │
+├──────────────────────────────────────────────────────────────┤
+│ [ 16 ] Viernes, 16 de octubre                                │
+│ [ 10 ] [ Horario Ordinario (Tipo A) ]                 [ ✏️ ] │
+│        Jornada escolar ordinaria                             │
+├──────────────────────────────────────────────────────────────┤
+│ [ 17 ] Sábado, 17 de octubre                                 │
+│ [ 10 ] [ Sin Clases / Receso ]                        [ ✏️ ] │
+│        Fin de semana institucional                           │
+├──────────────────────────────────────────────────────────────┤
+│ [ 19 ] Lunes, 19 de octubre                                  │
+│ [ 10 ] [ Horario Especial (Tipo B) ]                  [ ✏️ ] │
+│        Viernes de acto cívico y jornada pedagógica           │
+└──────────────────────────────────────────────────────────────┘</div>
+                    <div class="figure-caption">Visualización fecha a fecha con pastillas de color según el tipo asignado y acceso al editor rápido.</div>
+                    <div class="figure-steps">
+                        <h5>Procedimiento para Cambiar el Régimen de una Fecha:</h5>
+                        <ol>
+                            <li>Pulse la pestaña <strong>Calendario</strong> en la barra inferior (Figura 7).</li>
+                            <li>Ubique la fecha deseada en la lista.</li>
+                            <li>Pulse el botón de lápiz <code>[ ✏️ ]</code> a la derecha de la tarjeta.</li>
+                            <li>En la ventana modal, seleccione el nuevo tipo de horario o marque <em>Sin Clases / Feriado</em>.</li>
+                            <li>Escriba una observación (ejemplo: <em>"Entrega de informes bimestrales"</em>).</li>
+                            <li>Presione <strong>Guardar Asignación</strong>. El sistema actualizará la regla y la almacenará de forma permanente.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 7. Barra de Navegación Inferior: Pestaña Calendario Activa</div>
+                    <div class="figure-mockup">[ Panel ]    [ Horarios ]    [ 📅 Calendario (Activo) ]    [ IoT Timbre ]    [ Bitácora ]    [ Sede ]</div>
+                    <div class="figure-caption">Indicador verde activo sobre la pestaña Calendario.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. MÓDULO 5: ENLACE IOT Y TOQUE MANUAL -->
+        <section class="manual-section" id="sec-iot">
+            <div class="section-header">
+                <span class="section-badge">10</span>
+                <h3>Módulo 5: Enlace IoT Bluetooth Classic SPP y Toque Manual</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    Administra la comunicación inalámbrica por puerto serie con el microcontrolador ESP32 y permite el accionamiento voluntario de la campana.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 8. Módulo IoT Timbre: Enlace y Toque Manual Táctil</div>
+                    <div class="figure-mockup">ᛒ Enlace Hardware (ESP32)                     [ ● Conectado (SPP) ]
+Dispositivo:   ESP32_TIMESCHOOL_BELL
+Dirección MAC: 24:6F:28:B2:7A:1C
+UUID SPP:      00001101-0000-1000-8000-00805F9B34FB
+
+[ Desconectar ]                                [ 🔄 Sincronizar ]
+-----------------------------------------------------------------
+Toque Manual de Campana                               RELÉ: REPOSO
+Duración toque:   [ 2s ]   [ 3s ]   [ 5s ]   [ 8s ]
+
+                       ┌────────────────┐
+                       │       🔔       │
+                       │     TOCAR      │
+                       └────────────────┘
+                          Toca o mantén</div>
+                    <div class="figure-caption">Tarjeta de conexión con dirección MAC y botón central táctil para pulsar o mantener la campana.</div>
+                    <div class="figure-steps">
+                        <h5>Procedimiento para Conectar y Tocar Manualmente:</h5>
+                        <ol>
+                            <li>Pulse la pestaña <strong>IoT Timbre</strong> en el menú inferior (Figura 10).</li>
+                            <li>Verifique que la píldora superior indique <strong>Conectado (SPP)</strong>. Si está desconectado, pulse <strong>Conectar</strong>.</li>
+                            <li>Para cargar las últimas programaciones a la Flash del ESP32, pulse <strong>Sincronizar</strong>.</li>
+                            <li><strong>Toque Rápido por Segundos:</strong> Seleccione la duración deseada (2s, 3s, 5s u 8s) y pulse una vez el botón verde central <strong>TOCAR</strong>. El relé se cerrará por ese lapso exacto.</li>
+                            <li><strong>Toque Continuo Manual:</strong> Mantenga su dedo presionado sobre el botón circular. La campana sonará de forma continua mientras no retire el dedo. Al soltarlo, se detendrá al instante.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. MÓDULO 6: EVACUACIÓN -->
+        <section class="manual-section" id="sec-evacuacion">
+            <div class="section-header">
+                <span class="section-badge">11</span>
+                <h3>Módulo 6: Alarma de Evacuación y Protocolo de Seguridad</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    Diseñado para situaciones de riesgo crítico (sismos, incendios, simulacros institucionales). Ejecuta el ciclo reglamentario intermitente de alerta escolar.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 9. Módulo de Seguridad Crítica: Alarma de Evacuación</div>
+                    <div class="figure-mockup">⚠️ Alarma de Evacuación
+Ciclo intermitente: 2s activo / 1s silencio
+
+Seguro Antidisparo Accidental
+Bloqueado para prevenir toques involuntarios           [ O ] (Apagado)
+
+┌──────────────────────────────────────────────────────────────┐
+│           📢  ACTIVAR EVACUACIÓN GENERAL (Bloqueado)        │
+└──────────────────────────────────────────────────────────────┘</div>
+                    <div class="figure-caption">Mecanismo antidisparos de dos pasos con borde rojo carmesí de seguridad.</div>
+                    <div class="figure-steps">
+                        <h5>Protocolo de Activación y Cancelación de Emergencia:</h5>
+                        <ol>
+                            <li>Desplácese hasta la parte inferior de la pestaña <strong>IoT Timbre</strong>.</li>
+                            <li>Observe que el botón de evacuación se encuentra deshabilitado para evitar toques involuntarios en el bolsillo.</li>
+                            <li><strong>Paso 1:</strong> Deslice el interruptor <strong>Seguro Antidisparo Accidental</strong> hacia la derecha. El botón se tornará rojo brillante.</li>
+                            <li><strong>Paso 2:</strong> Pulse <strong>ACTIVAR EVACUACIÓN GENERAL</strong>.</li>
+                            <li>La campana comenzará su ciclo ininterrumpido: <strong>2 segundos de sonido / 1 segundo de silencio</strong> y la interfaz parpadeará en rojo neón.</li>
+                            <li><strong>Para Cancelar la Alarma:</strong> Pulse el botón verde de parada <strong>DETENER ALARMA DE EVACUACIÓN</strong>. El relé se desconectará de inmediato y el evento quedará asentado en la bitácora con prioridad alta.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 10. Barra de Navegación Inferior: Pestaña IoT Timbre Activa</div>
+                    <div class="figure-mockup">[ Panel ]    [ Horarios ]    [ Calendario ]    [ 🔔 IoT Timbre (Activo) ]    [ Bitácora ]    [ Sede ]</div>
+                    <div class="figure-caption">Indicador verde activo sobre la pestaña IoT Timbre.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. MÓDULO 7: BITÁCORA INMUTABLE -->
+        <section class="manual-section" id="sec-bitacora">
+            <div class="section-header">
+                <span class="section-badge">12</span>
+                <h3>Módulo 7: Bitácora Inmutable de Auditoría</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    Registro histórico legal de todas las acciones del sistema. Por política estricta de seguridad de Cloud Firestore, los registros no pueden ser modificados ni borrados por ningún usuario.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 11. Módulo de Bitácora Inmutable (Cloud Firestore)</div>
+                    <div class="figure-mockup">🛡️ Bitácora Inmutable (Cloud Firestore)
+Reglas de seguridad activas: Inserción y lectura habilitadas; edición y borrado estrictamente prohibidos.
+
+🔍 Buscar en la bitácora (ej. Carlos, Toque, 07:00)...
+
+[ Todos (4) ]   [ Programado (2) ]   [ Toque Manual (1) ]   [ Sincronización (1) ]
+
+Eventos (4)                                           Orden cronológico inverso
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ [ 🔄 Sincronización IoT ]                         2026-10-15 12:55:47  [🔒] │
+│ Sincronizados 135 toques y reloj RTC con ESP32 vía Bluetooth SPP            │
+│ 👤 Carlos Mendoza (Administrador)                              [ Ejecutado ]│
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [ 🕒 Programado ]                                 2026-10-15 07:00:02  [🔒] │
+│ Disparo automático: Timbre 07:00 (Inicio Hora 1) - Duración: 4s             │
+│ 👤 ESP32 Timer Autónomo                                        [ Ejecutado ]│
+└─────────────────────────────────────────────────────────────────────────────┘</div>
+                    <div class="figure-caption">Buscador en tiempo real, chips de filtrado por evento y sello de inmutabilidad con candado de seguridad.</div>
+                    <div class="figure-steps">
+                        <h5>Procedimiento para Auditar Eventos:</h5>
+                        <ol>
+                            <li>Pulse la pestaña <strong>Bitácora</strong> en la barra inferior (Figura 12).</li>
+                            <li>Utilice la barra buscadora para escribir términos específicos como el nombre del directivo, una hora o la palabra <em>"Evacuación"</em>.</li>
+                            <li>Use los chips superiores para aislar toques automáticos (<em>Programado</em>) de accionamientos manuales (<em>Toque Manual</em>).</li>
+                            <li>Verifique en cada tarjeta la estampa de tiempo al segundo, la autoría identificada y la pastilla verde <strong>Ejecutado</strong>.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 12. Barra de Navegación Inferior: Pestaña Bitácora Activa</div>
+                    <div class="figure-mockup">[ Panel ]    [ Horarios ]    [ Calendario ]    [ IoT Timbre ]    [ 📜 Bitácora (Activo) ]    [ Sede ]</div>
+                    <div class="figure-caption">Indicador verde activo sobre la pestaña Bitácora.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. MÓDULO 8: SEDE Y CONTROL DE ROLES -->
+        <section class="manual-section" id="sec-sede">
+            <div class="section-header">
+                <span class="section-badge">13</span>
+                <h3>Módulo 8: Configuración Institucional y Control de Permisos</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    Administra los datos formales de la institución escolar y evidencia el sistema de permisos por roles de Cloud Firestore.
+                </p>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 13. Configuración Institucional: Modo Administrador</div>
+                    <div class="figure-mockup">Sesión Activa                                                [ ADMINISTRADOR ]
+👤 Carlos Mendoza (admin@timeschool.edu.co)
+
+[ 🔄 Cambiar a Rol Directivo (Prueba de Permisos) ]
+-------------------------------------------------------------------------------
+Configuración Institucional:
+[🏫] Nombre del Colegio:  Institución Educativa Técnico Industrial San José
+[📍] Sede / Campus:       Sede Principal - Campus Central
+[📅] Año Lectivo:         2026
+
+Última modificación: 15/10/2026 12:54 por Carlos Mendoza (Administrador)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                 💾  GUARDAR CAMBIOS INSTITUCIONALES                         │
+└─────────────────────────────────────────────────────────────────────────────┘</div>
+                    <div class="figure-caption">Vista completa con permisos de edición para el rol Administrador.</div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 14. Restricción Institucional: Modo Directivo (Solo Lectura)</div>
+                    <div class="figure-mockup">Sesión Activa                                                    [ DIRECTIVO ]
+👤 Marta Rojas (coordinacion@timeschool.edu.co)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🔒 Modo Directivo: Acceso de solo lectura a la configuración institucional  │
+│    según las reglas de Firestore.                                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+[ 🔄 Cambiar a Rol Administrador ]
+(Campos de texto bloqueados y botón de guardar ausente)</div>
+                    <div class="figure-caption">Validación de seguridad activa: el rol directivo no puede alterar la identidad institucional del colegio.</div>
+                    <div class="figure-steps">
+                        <h5>Procedimiento de Administración y Validación de Permisos:</h5>
+                        <ol>
+                            <li>Pulse la pestaña <strong>Sede</strong> en el menú inferior (Figura 15).</li>
+                            <li><strong>Modificar datos (Como Administrador):</strong> Escriba el nombre corregido del colegio, sede o año y pulse <strong>Guardar Cambios Institucionales</strong>. La barra superior se actualizará al instante.</li>
+                            <li><strong>Auditar restricción:</strong> Pulse <strong>Cambiar a Rol Directivo</strong>. Observará cómo los campos se bloquean de inmediato, garantizando el principio de menor privilegio del sistema.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-title">Figura 15. Barra de Navegación Inferior: Pestaña Sede Activa</div>
+                    <div class="figure-mockup">[ Panel ]    [ Horarios ]    [ Calendario ]    [ IoT Timbre ]    [ Bitácora ]    [ ⚙️ Sede (Activo) ]</div>
+                    <div class="figure-caption">Indicador verde activo sobre la pestaña Sede.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 15. MENSAJES Y ERRORES -->
+        <section class="manual-section" id="sec-errores">
+            <div class="section-header">
+                <span class="section-badge">14</span>
+                <h3>Mensajes, Validaciones y Solución de Errores</h3>
+            </div>
+            <div class="section-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mensaje en Pantalla</th>
+                            <th>Diagnóstico Técnico</th>
+                            <th>Solución Inmediata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><em>"Horario semanal guardado exitosamente"</em></td>
+                            <td>Confirmación de escritura en <code>TimeSchoolPreferences</code>.</td>
+                            <td>Operación exitosa. Los cambios persistirán al reiniciar.</td>
+                        </tr>
+                        <tr>
+                            <td><em>"Bluetooth ESP32 desconectado"</em></td>
+                            <td>Pérdida de señal de radiofrecuencia con la campana.</td>
+                            <td>Acérquese a menos de 15 metros y pulse <em>Conectar</em> en la pestaña IoT.</td>
+                        </tr>
+                        <tr>
+                            <td><em>"Acceso Denegado: Solo el Administrador..."</em></td>
+                            <td>Violación de regla de seguridad Firestore por rol Directivo.</td>
+                            <td>Conmute al rol Administrador en la pestaña Sede.</td>
+                        </tr>
+                        <tr>
+                            <td><em>"Seguro Antidisparo Bloqueado"</em></td>
+                            <td>Bloqueo preventivo de la alarma de evacuación.</td>
+                            <td>Active el interruptor antes de pulsar el botón rojo de emergencia.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 16. SEGURIDAD Y RECOMENDACIONES -->
+        <section class="manual-section" id="sec-seguridad">
+            <div class="section-header">
+                <span class="section-badge">15</span>
+                <h3>Recomendaciones y Buenas Prácticas</h3>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li><strong>Sincronización Semanal:</strong> Aunque el ESP32 cuenta con RTC de cuarzo de alta exactitud, se recomienda conectar la app los lunes por la mañana para revalidar la hora móvil con la campana.</li>
+                    <li><strong>Mantenimiento del Seguro de Evacuación:</strong> Mantenga el switch siempre desactivado. Solo debe encenderse durante simulacros autorizados o emergencias reales comprobadas.</li>
+                    <li><strong>Protección Eléctrica:</strong> Asegure el microcontrolador ESP32 a una regleta con supresor de picos o mini-UPS para garantizar toques ininterrumpidos ante apagones en el sector.</li>
+                    <li><strong>Límite de Duración:</strong> Evite toques superiores a 6 segundos para no someter la bobina de la campana electromecánica a fatiga térmica innecesaria.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 17. PREGUNTAS FRECUENTES -->
+        <section class="manual-section" id="sec-faq">
+            <div class="section-header">
+                <span class="section-badge">16</span>
+                <h3>Preguntas Frecuentes (FAQ)</h3>
+            </div>
+            <div class="section-body">
+                <p><strong>¿Qué ocurre si el teléfono se apaga o sale de la institución?</strong><br>
+                El microcontrolador ESP32 opera de forma 100% autónoma gracias a su memoria Flash interna. Una vez sincronizado, la campana sonará en sus horas programadas sin requerir el móvil.</p>
+
+                <p><strong>¿Cómo sé si los cambios en la semana quedaron guardados?</strong><br>
+                Al presionar el botón <em>Guardar Horario</em>, la pastilla ámbar "Pendiente" desaparece y se muestra un mensaje flotante de confirmación. Además, el cambio queda registrado en la Bitácora con fecha y hora.</p>
+
+                <p><strong>¿Se pueden borrar registros antiguos de la bitácora?</strong><br>
+                No. Las reglas de seguridad de TimeSchool garantizan la inmutabilidad de la auditoría escolar para impedir alteraciones humanas.</p>
+            </div>
+        </section>
+
+        <!-- 18. GLOSARIO -->
+        <section class="manual-section" id="sec-glosario">
+            <div class="section-header">
+                <span class="section-badge">17</span>
+                <h3>Glosario de Términos</h3>
+            </div>
+            <div class="section-body">
+                <p><strong>ESP32:</strong> Circuito integrado de control con CPU de doble núcleo y conectividad inalámbrica que acciona físicamente el relé de la campana.</p>
+                <p><strong>Relé (Relay):</strong> Interruptor gobernado electrónicamente que abre o cierra el paso de corriente eléctrica hacia la campana sonora.</p>
+                <p><strong>Bluetooth SPP:</strong> Perfil de puerto serie inalámbrico que permite el intercambio de comandos en texto plano (como <code>SYNC_SCHEDULES</code> o <code>CMD:EVAC_START</code>).</p>
+                <p><strong>Inmutabilidad:</strong> Propiedad informática por la cual un registro una vez creado no puede ser modificado ni eliminado bajo ninguna circunstancia.</p>
+                <p><strong>TimeSchoolPreferences:</strong> Capa de almacenamiento local no volátil en Android que preserva las configuraciones del usuario entre reinicios.</p>
+            </div>
+        </section>
+
+        <!-- 19. CONCLUSIONES -->
+        <section class="manual-section" id="sec-conclusiones">
+            <div class="section-header">
+                <span class="section-badge">18</span>
+                <h3>Conclusiones y Resumen Operativo</h3>
+            </div>
+            <div class="section-body">
+                <p>
+                    El sistema <strong>TimeSchool</strong> dota a la <strong>Institución Educativa Técnico Industrial San José</strong> de un estándar tecnológico de primer nivel. Al conjugar la sencillez de una interfaz móvil en Jetpack Compose con la robustez y autonomía de un microcontrolador industrial, la institución garantiza:
+                </p>
+                <ol>
+                    <li>Puntualidad absoluta e inalterable en el cumplimiento de los tiempos de clase y descanso.</li>
+                    <li>Capacidad de reacción inmediata en evacuaciones ante emergencias con un sistema antidisparos fiable.</li>
+                    <li>Transparencia total y trazabilidad de cada toque gracias a su bitácora inmutable.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="manual-footer">
+            <p><strong>TimeSchool - Sistema de Timbre Escolar Automatizado</strong> • Versión 1.0 (Android)</p>
+            <p>I.E. Técnico Industrial San José • Sede Principal - Campus Central • Año Lectivo 2026</p>
+            <p style="margin-top: 8px; font-size: 11px;">Documento técnico y operativo generado para administradores, directivos y personal escolar.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            const btn = document.getElementById('themeToggleBtn');
+            btn.innerHTML = isLight ? '🌙 Modo Oscuro Tech' : '🌓 Tema Claro / Oscuro';
+        }
+    </script>
+</body>
+</html>

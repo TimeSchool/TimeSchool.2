@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().rol == role && getUserData().estado == true;
+    }
+
+    function isAdmin() {
+      return hasRole('administrador');
+    }
+
+    function isDirectivo() {
+      return hasRole('directivo');
+    }
+
+    function isStaff() {
+      return isAdmin() || isDirectivo();
+    }
+
+    // 1. Configuración Institucional
+    // Lectura permitida a usuarios autenticados. Modificación exclusiva para administradores.
+    match /configuracion/institucion {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // 2. Usuarios
+    // Solo administradores pueden gestionar usuarios. Los usuarios pueden leer su propio perfil.
+    match /usuarios/{uid} {
+      allow read: if isAuthenticated() && (request.auth.uid == uid || isAdmin());
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 3. Tipos de Horario (A, B, C)
+    // Administradores y directivos pueden leer y actualizar. Solo administradores pueden crear o borrar.
+    match /tipos_horario/{tipoId} {
+      allow read: if isAuthenticated();
+      allow create, delete: if isAdmin();
+      allow update: if isStaff();
+    }
+
+    // 4. Programaciones de Timbre
+    // Administradores y directivos pueden leer y actualizar los horarios programados.
+    match /programaciones/{progId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isStaff();
+    }
+
+    // 5. Calendario de Días
+    // Administradores y directivos pueden asignar y modificar tipos de horario por día.
+    match /calendario_dias/{diaId} {
+      allow read: if isAuthenticated();
+      allow write: if isStaff();
+    }
+
+    // 6. Bitácora de Registros (Inmutable)
+    // Permite lectura a personal del colegio e inserción de nuevos registros (con UID válido).
+    // Prohíbe estrictamente modificación (update) o eliminación (delete).
+    match /registros/{registroId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && 
+                    request.resource.data.usuario_uid == request.auth.uid &&
+                    request.resource.data.tipo_evento in ['PROGRAMADO', 'MANUAL', 'EVACUACION', 'SINCRONIZACION'];
+      allow update, delete: if false; // Inmutabilidad garantizada
+    }
+  }
+}
